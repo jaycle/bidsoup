@@ -92,6 +92,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, never, AccountActi
   createUnitType: (unit: Partial<Unit>) => dispatch(createUnitType(unit))
 });
 
-const DashboardContainer = connect<ReturnType<typeof mapStateToProps>, ReturnType<typeof mapDispatchToProps>>(mapStateToProps, mapDispatchToProps)(Dashboard);
+const DashboardContainer = connect(mapStateToProps, mapDispatchToProps)(Dashboard);
 
 export default DashboardContainer;
