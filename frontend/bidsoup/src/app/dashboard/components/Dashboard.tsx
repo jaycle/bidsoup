@@ -38,7 +38,7 @@ interface ItemWithTotal extends BidItem {
 }
 
 interface Props {
-  bid: number | null;
+  bid: string;
   bids: Bid[];
   units: Unit[];
   customers: Customer[];

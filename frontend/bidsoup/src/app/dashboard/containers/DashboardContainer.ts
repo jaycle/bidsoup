@@ -7,7 +7,7 @@ import { array2HashByKey } from '../../utils/sorting';
 import { fetchApi } from '../../taskItem/actions/apiActions';
 import { BidItem, Category, Bid, Customer, AppState, Unit } from 'src/app/types/types';
 import { UnitDict } from 'src/app/taskItem/actions/unitTypeActions';
-import { Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 const itemsByCategory = (items: BidItem[], categories: Category[]) => {
   let sortedItems = array2HashByKey(items, 'category');
@@ -68,7 +68,7 @@ interface OwnProps {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
   bids: state.bids.list,
-  selectedBid: bidWithCustomer(state.bids.selectedBid, state.customers.list),
+  selectedBid: bidWithCustomer(state.bids.selectedBid, state.customers.list) as Bid,
   categoriesWithItems: itemsByCategory(
     itemsWithTotal(state.bidData.items.list, state.bidData.units.units),
     state.bidData.categories.list
@@ -78,7 +78,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
   units: unitsArray(state.bidData.units.units)
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: OwnProps) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, never, AccountActions | BidActions>, ownProps: OwnProps) => ({
   loadPage: () => {
     dispatch(AccountActions.setAccount(ownProps.match.params.account));
     return dispatch(fetchApi());
