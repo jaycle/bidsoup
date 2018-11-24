@@ -52,8 +52,16 @@ interface Props {
   clearSelectedBid: () => any;
   fetchCustomers: () => any;
 }
+interface OwnProps {
+  match: {
+    params: {
+      account: string;
+      bid: string;
+    }
+  }
+}
 
-class Dashboard extends React.Component<Props> {
+class Dashboard extends React.Component<Props & OwnProps> {
   componentDidMount() {
     if (this.props.bids.length <= 0) {
       this.props.loadPage()
