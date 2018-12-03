@@ -81,9 +81,9 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps) => ({
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, never, AccountActions | BidActions>, ownProps: OwnProps) => ({
   loadPage: () => {
     dispatch(AccountActions.setAccount(ownProps.match.params.account));
-    return dispatch(fetchApi());
-      // commented out becuse of .then problem on void
-      // .then(() => dispatch(fetchCustomerList()))
+    return dispatch(fetchApi())
+      .then(() => dispatch(fetchCustomerList()));
+      // commented out becuse can't find fetchBidListByAccount
       // .then(() => dispatch(fetchBidListByAccount()));
   },
   fetchCustomers: () => dispatch(fetchCustomerList()),
